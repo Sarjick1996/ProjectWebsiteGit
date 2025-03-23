@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 500 Movies & TV Shows | 1337Xtreme</title>
+    <meta name="description" content="Discover the top 500 popular movies and TV shows, updated dynamically with the latest trending titles.">
+    <meta name="keywords" content="top movies, best TV shows, trending movies, streaming, movie reviews">
+    <meta name="author" content="1337Xtreme">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json" id="schema-data"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: #222;
+            color: white;
+            padding: 20px;
+        }
+        .content-table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .content-table th, .content-table td {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 14px;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .content-table th {
+            background: rgba(255, 255, 255, 0.5);
+            color: black;
+            font-weight: bold;
+        }
+        .content-table a {
+            color: #00c3ff;
+            text-decoration: none;
+        }
+        .content-table a:hover {
+            text-decoration: underline;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            background-color: #ff9800;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px rgba(255, 152, 0, 0.5);
+        }
+
+        .home-button:hover {
+            background-color: #e68900;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+<a href="index.html" class="home-button">Home</a>
+
+<h1>Top 500 Popular Movies & TV Shows</h1>
+
+<!-- Movies Table -->
+<h2>🎬 Popular Movies</h2>
+<table class="content-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Movie Name</th>
+        </tr>
+    </thead>
+    <tbody id="movie-list"></tbody>
+</table>
+
+<!-- TV Shows Table -->
+<h2>📺 Popular TV Shows</h2>
+<table class="content-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>TV Show Name</th>
+        </tr>
+    </thead>
+    <tbody id="tv-list"></tbody>
+</table>
+
+<script>
+    const API_KEY = "2d45ad7aa6c1aef9c685a9abcb15358e";
+    const BASE_URL = "https://api.themoviedb.org/3";
+    let allMovies = [];
+    let allTVShows = [];
+
+    async function fetchMovies() {
+        let positionCounter = 1;
+        for (let i = 1; i <= 25; i++) {
+            const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=${i}`);
+            const data = await response.json();
+            if (!data.results) continue;
+            
+            data.results.forEach(movie => {
+                if (allMovies.length < 500) {
+                    allMovies.push({ position: positionCounter, name: movie.title, url: `https://www.google.com/search?q=${encodeURIComponent(movie.title)}` });
+                    positionCounter++;
+                }
+            });
+        }
+        displayMovies();
+        generateSchemaMarkup();
+    }
+
+    async function fetchTVShows() {
+        let positionCounter = 1;
+        for (let i = 1; i <= 25; i++) {
+            const response = await fetch(`${BASE_URL}/tv/popular?api_key=${API_KEY}&language=en-US&page=${i}`);
+            const data = await response.json();
+            if (!data.results) continue;
+            
+            data.results.forEach(show => {
+                if (allTVShows.length < 500) {
+                    allTVShows.push({ position: positionCounter, name: show.name, url: `https://www.google.com/search?q=${encodeURIComponent(show.name)}` });
+                    positionCounter++;
+                }
+            });
+        }
+        displayTVShows();
+        generateSchemaMarkup();
+    }
+
+    function displayMovies() {
+        document.getElementById("movie-list").innerHTML = allMovies.map(movie => 
+            `<tr><td>${movie.position}</td><td><a href='${movie.url}' target='_blank'>${movie.name}</a></td></tr>`).join("");
+    }
+
+    function displayTVShows() {
+        document.getElementById("tv-list").innerHTML = allTVShows.map(show => 
+            `<tr><td>${show.position}</td><td><a href='${show.url}' target='_blank'>${show.name}</a></td></tr>`).join("");
+    }
+
+function generateSchemaMarkup() {
+    let schemaData = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Top 500 Movies & TV Shows",
+        "itemListElement": []
+    };
+
+    let currentPosition = 1;  // Start position from 1
+
+    // Movies: Positions 1 - 500
+    allMovies.forEach((movie) => {
+        schemaData.itemListElement.push({
+            "@type": "ListItem",
+            "position": currentPosition,  // Assigning unique position
+            "name": movie.name,
+            "url": `https://www.themoviedb.org/movie/${movie.id}`  // Unique TMDb link
+        });
+        currentPosition++;  // Increase position count
+    });
+
+    // TV Shows: Positions 501 - 1000
+    allTVShows.forEach((show) => {
+        schemaData.itemListElement.push({
+            "@type": "ListItem",
+            "position": currentPosition,  // TV Shows continue from 501+
+            "name": show.name,
+            "url": `https://www.themoviedb.org/tv/${show.id}`  // Unique TMDb link
+        });
+        currentPosition++;  // Increase position count
+    });
+
+    document.getElementById("schema-data").textContent = JSON.stringify(schemaData, null, 2);
+}
+    fetchMovies();
+    fetchTVShows();
+</script>
+
+</body>
+</html>

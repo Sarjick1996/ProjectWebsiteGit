@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 500 Trending Applications | 1337Xtreme</title>
+    <meta name="description" content="Discover the top 500 trending applications, updated dynamically.">
+    <meta name="keywords" content="top applications, trending software, best apps, open-source apps">
+    <meta name="author" content="1337Xtreme">
+    <meta property="og:title" content="Top 500 Trending Applications">
+    <meta property="og:description" content="Check out the latest trending applications updated dynamically.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-site.com/top-500-apps">
+    <meta property="og:image" content="https://your-site.com/app-thumbnail.jpg">
+    
+    <script type="application/ld+json" id="schema-data"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; text-align: center; background: #222; color: white; padding: 20px; }
+        .app-table { width: 80%; margin: auto; border-collapse: collapse; margin-top: 20px; background: rgba(255, 255, 255, 0.3); border-radius: 10px; }
+        .app-table th, .app-table td { border: 1px solid rgba(255, 255, 255, 0.5); padding: 14px; font-size: 1.1rem; background: rgba(0, 0, 0, 0.3); }
+        .app-table th { background: rgba(255, 255, 255, 0.5); color: black; font-weight: bold; }
+        .app-table a { color: #00c3ff; text-decoration: none; }
+        .app-table a:hover { text-decoration: underline; }
+        .pagination { margin-top: 20px; }
+        .pagination a { padding: 10px 15px; margin: 5px; font-size: 1rem; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; }
+        .pagination a:hover { background: #0056b3; }
+        
+        .home-button {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            background-color: #ff9800;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px rgba(255, 152, 0, 0.5);
+        }
+        .home-button:hover {
+            background-color: #e68900;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button">Home</a>
+    <h1>Top 500 Trending Applications</h1>
+    <table class="app-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Application Name</th>
+            </tr>
+        </thead>
+        <tbody id="app-list"></tbody>
+    </table>
+    <div class="pagination" id="pagination"></div>
+    
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let currentPage = parseInt(urlParams.get("page")) || 1;
+        const appsPerPage = 50;
+        let allApps = [];
+        
+        async function fetchApps() {
+            document.getElementById("app-list").innerHTML = "<tr><td colspan='2'>Loading applications...</td></tr>";
+            let apiUrl = "https://api.github.com/search/repositories?q=stars:%3E1000&sort=stars&per_page=100";
+            try {
+                let responses = await Promise.all([
+                    fetch(apiUrl + "&page=1"),
+                    fetch(apiUrl + "&page=2"),
+                    fetch(apiUrl + "&page=3"),
+                    fetch(apiUrl + "&page=4"),
+                    fetch(apiUrl + "&page=5")
+                ]);
+                let data = await Promise.all(responses.map(res => res.json()));
+                
+                allApps = data.flatMap(d => d.items).slice(0, 500).map((app, index) => ({
+                    position: index + 1,
+                    name: app.name,
+                    url: "https://www.google.com/search?q=" + encodeURIComponent(app.name + " software")
+                }));
+                
+                displayApps();
+                createPagination();
+            } catch (error) {
+                console.error("Application Fetch Error:", error);
+                document.getElementById("app-list").innerHTML = "<tr><td colspan='2'>Failed to load applications.</td></tr>";
+            }
+        }
+        
+        function displayApps() {
+            let start = (currentPage - 1) * appsPerPage;
+            let end = start + appsPerPage;
+            let paginatedApps = allApps.slice(start, end);
+            document.getElementById("app-list").innerHTML = paginatedApps.map(app => 
+                `<tr><td>${app.position}</td><td><a href='${app.url}' target='_blank'>${app.name}</a></td></tr>`).join("");
+            generateSchemaMarkup(paginatedApps);
+        }
+        
+        function createPagination() {
+            let totalPages = Math.ceil(allApps.length / appsPerPage);
+            document.getElementById("pagination").innerHTML = 
+                Array.from({ length: totalPages }, (_, i) => `<a href='?page=${i + 1}'>${i + 1}</a>`).join(" ");
+        }
+        
+        function generateSchemaMarkup(paginatedApps) {
+            let schemaData = {
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                "name": `Trending Applications - Page ${currentPage}`,
+                "itemListElement": paginatedApps.map((app, index) => ({
+                    "@type": "ListItem",
+                    "position": (currentPage - 1) * appsPerPage + index + 1,
+                    "name": app.name,
+                    "url": app.url
+                }))
+            };
+            document.getElementById("schema-data").textContent = JSON.stringify(schemaData, null, 2);
+        }
+        
+        fetchApps();
+    </script>
+</body>
+</html>

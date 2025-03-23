@@ -170,6 +170,57 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yourwebsite.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Movies",
+      "item": "https://yourwebsite.com/movies"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Games",
+      "item": "https://yourwebsite.com/games"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is 1337XSearch safe to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1337XSearch does not host any files; it only provides search results for torrents."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I search for torrents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Simply enter your search query in the search box and click 'Search'."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
     <div class="disclaimer">
@@ -185,11 +236,11 @@
         </div>
         <div class="categories">
             <a href="movienews.html" class="category-button">Movies</a>
-            <button class="category-button" onclick="searchCategory('TV Shows')">TV Shows</button>
+             <a href="tvshows.html" class="category-button">TV Shows</a>
              <a href="Games.html" class="category-button">Games</a>
-            <button class="category-button" onclick="searchCategory('Music')">Music</button>
-            <button class="category-button" onclick="searchCategory('Applications')">Applications</button>
-            <button class="category-button" onclick="searchCategory('Anime')">Anime</button>
+            <a href="music.html" class="category-button">Music</a>
+            <a href="application.html" class="category-button">Application</a>
+             <a href="anime.html" class="category-button">Anime</a>
             <button class="category-button" onclick="searchCategory('Ebooks')">Ebooks</button>
         </div>
     </div>
