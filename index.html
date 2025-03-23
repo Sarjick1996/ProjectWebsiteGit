@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1337XSearch</title>
+<meta name="description" content="1337XSearch - The best torrent search engine to find movies, games, music, and more. Fast, secure, and reliable." />
+<meta name="keywords" content="torrent search, movies, games, music, free downloads, torrent aggregator, magnet links, best torrent sites" />
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="1337XSearch - Best Torrent Search Engine">
+<meta property="og:description" content="Search torrents from multiple sources easily. Movies, TV shows, games, and more!" />
+<meta property="og:image" content="background.jpg" />
+<meta property="og:url" content="https://yourwebsite.com" />
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://yourwebsite.com" />
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+            text-align: center;
+            color: white;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            margin-top: 2vh;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            font-size: 3rem;
+            font-family: 'Georgia', serif;
+            color: white;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .search-box {
+             padding: 15px;
+            width: 400px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            font-size: 1.2rem;
+            color: black;
+            background-color: white;
+            outline: none;
+
+        }
+        .search-button {
+            padding: 15px 30px;
+            background: linear-gradient(90deg, red, darkred);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            border: none;
+            transition: 0.3s ease-in-out;
+        }
+        .search-button:hover {
+            background: linear-gradient(90deg, darkred, red);
+            transform: scale(1.05);
+        }
+        .categories {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .category-button {
+            padding: 10px 20px;
+            background: linear-gradient(90deg, red, darkred);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border: none;
+            transition: 0.3s ease-in-out;
+        }
+        .category-button:hover {
+            background: linear-gradient(90deg, darkred, red);
+            transform: scale(1.05);
+        }
+
+.spacer {
+            height: 12vh;                                       /* Increased space to push disclaimer far below */
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 20px;
+        }
+       .disclaimer, .legal-request {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+                                     /* fade background */
+            padding: 15px;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+            color: white; /* Ensures readability */
+            text-align: center;
+            width: 80%;
+            margin: 20px auto;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Adds visibility */
+        }
+        .legal-request {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+.copyright {
+    text-align: center;}
+    </style>
+    <script>
+        function sanitizeInput(input) {
+            return input.replace(/[^a-zA-Z0-9 ]/g, "");
+        }
+        function searchTorrents() {
+            let query = sanitizeInput(document.getElementById("search").value.trim());
+            if (query) {
+                window.location.href = `2ndpage.html?query=${encodeURIComponent(query)}`;
+            }
+        }
+        function searchCategory(category) {
+            window.location.href = `2ndpage.html?query=${encodeURIComponent(category)}`;
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("search").addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    searchTorrents();
+                }
+            });
+            let notice = document.getElementById("notice");
+            if (notice) {
+                notice.classList.add("show");
+            }
+        });
+    </script>
+   <script>
+        document.addEventListener("scroll", function () {
+            let hiddenSections = document.querySelectorAll(".hidden-section");
+            hiddenSections.forEach(section => {
+                let position = section.getBoundingClientRect().top;
+                if (position < window.innerHeight - 50) {
+                    section.classList.add("visible");
+                }
+            });
+        });
+    </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "1337XSearch",
+  "url": "https://yourwebsite.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://yourwebsite.com/2ndpage.html?query={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script
+
+</head>
+<body>
+    <div class="disclaimer">
+        <p>Stop wasting time searching everywhere! We bring you the fastest and most reliable way to find free movies, games, music, and more. <strong>Stay safe—always use a VPN!</strong></p>
+    </div>
+    <div class="container">
+        <h1>1337XSearch</h1>
+<img src="background.jpg" alt="Torrent search engine background image" style="display: none;">
+        <div class="search-container">
+
+            <input type="text" id="search" class="search-box" placeholder="Search any movies, games, music, and more...">
+            <button class="search-button" onclick="searchTorrents()">Search</button>
+        </div>
+        <div class="categories">
+            <a href="movienews.html" class="category-button">Movies</a>
+            <button class="category-button" onclick="searchCategory('TV Shows')">TV Shows</button>
+            <button class="category-button" onclick="searchCategory('Games')">Games</button>
+            <button class="category-button" onclick="searchCategory('Music')">Music</button>
+            <button class="category-button" onclick="searchCategory('Applications')">Applications</button>
+            <button class="category-button" onclick="searchCategory('Anime')">Anime</button>
+            <button class="category-button" onclick="searchCategory('Ebooks')">Ebooks</button>
+        </div>
+    </div>
+
+
+<div class="spacer"></div>
+
+
+    <div class="footer hidden-section">
+        <div class="disclaimer">
+            <p><strong>Disclaimer:</strong> This website does not host any torrent files or provide direct downloads. We only show search results to the users to third-party sites.Its a torrent search aggregator only. If you have any legal complaints, please visit the respective websites directly. Mail us in the contact page for promotion and other issues. Thank you have a nice day.</p>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 1337XSearch. All rights reserved.</p>
+        </div>
+        <div class="legal-request" id="notice">
+            <h2>Notice to Authorities & Copyright Holders</h2>
+            <p>We kindly request that authorities, copyright holders, and enforcement agencies recognize that 
+        <strong>1337XSearch</strong> is a <em>neutral search engine</em> and not a hosting platform. 
+        We do not control or store any copyrighted content but merely index publicly available information. 
+        If any concerns arise, we are open to discussions and compliance with valid legal requests.
+</p>
+        </div>
+    </div>
+</body>
+</html>
+
