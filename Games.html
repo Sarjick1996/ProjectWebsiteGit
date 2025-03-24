@@ -201,7 +201,8 @@ fetchGames().then(generateSchemaMarkup);
 
         async function fetchGames() {
             document.getElementById("game-list").innerHTML = "<tr><td colspan='2'>Loading games...</td></tr>";
-            let apiUrl = "https://shiny-hill-1996.sarjickbhaumik123.workers.dev/?api=rawg";
+            let apiKey = "7709241eb9a444e188fa7ebf1cd90fdc";
+            let apiUrl = "https://api.rawg.io/api/games?key=" + apiKey + "&page_size=50&platforms=4";
             
             try {
                 allGames = [];
