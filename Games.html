@@ -3,251 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top 200 PC Games | 1337Xtreme</title>
-    <meta name="description" content="Discover the top 200 PC games, updated dynamically with the latest trending titles.">
-    <meta name="keywords" content="top PC games, best PC games, trending games, gaming news, game reviews">
-    <meta name="author" content="1337Xtreme">
-    <meta property="og:title" content="Top 200 PC Games">
-    <meta property="og:description" content="Check out the latest top 200 PC games updated dynamically.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-site.com/top-200-pc-games">
-    <meta property="og:image" content="https://your-site.com/game-thumbnail.jpg">
-<meta name="description" content="Download the best PC games for free! Get trending RPGs, battle royale games, and top online multiplayer games. Stay updated on new releases, esports, and gaming news.">
-<meta name="keywords" content="best PC games, free game download, online multiplayer, battle royale, RPG games, gaming news, strategy games, VR games, cross-platform games, new game releases">
+    <title>Top Games List - Play & Download</title>
+    <meta name="description" content="Discover the best free games to play online or download. Explore top-rated games from various genres!">
+    <meta name="keywords" content="free games, play online, download games, best adventure games, top PC games">
     
-    <script type="application/ld+json" id="schema-data"></script>
-    <script>
-     function generateSchemaMarkup() {
-    if (!allGames.length) return; // Ensure allGames is not empty
-
-    let schemaData = {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "name": "Top 500 PC Games",
-        "itemListElement": allGames.map((game, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "name": game.name,
-            "url": "https://www.google.com/search?q=" + encodeURIComponent(game.name)
-        }))
-    };
-
-    document.getElementById("schema-data").textContent = JSON.stringify(schemaData, null, 2);
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Merriweather', serif; background: url('games.jpg') no-repeat center center fixed; background-size: cover; color: white; }
+        .container { text-align: center; margin-top: 20px; background: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 10px; }
+        .table-container { width: 90%; margin: auto; margin-top: 20px; background: rgba(255, 255, 255, 0.2); border-radius: 10px; overflow: hidden; }
+        .game-table { width: 100%; border-collapse: collapse; }
+        .game-table th, .game-table td { font-size: 1rem; padding: 12px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(0, 0, 0, 0.3); text-align: left; }
+.game-table th {
+    text-align: center; /* Center align text */
+    font-size: 1.3rem; /* Same as game names */
+    font-family: 'Poppins', sans-serif; /* Matching font */
+    font-weight: bold;
+    color: white;
+    letter-spacing: 0.5px; /* Slight spacing */
+    background: rgba(0, 123, 255, 0.4); /* Bluish transparent */
+    border-bottom: 2px solid rgba(0, 123, 255, 0.7); /* Blue border for separation */
+    backdrop-filter: blur(6px); /* Glass effect */
+    text-shadow: 
+        -1px -1px 0 black,  
+         1px -1px 0 black,  
+        -1px  1px 0 black,  
+         1px  1px 0 black; /* Creates black outline */
+}
+.game-table td:first-child { 
+    text-align: center;  /* Center game names */
+    font-size: 1.3rem;  /* Slightly larger font */
+    font-family: 'Poppins', sans-serif;  /* Stylish font */
+    font-weight: bold;  
+    color: white;  /* White text */
+    letter-spacing: 0.5px; /* Slight spacing */
+    background: transparent; /* Clean look */
+    padding: 10px; /* Space inside */
+    text-shadow: 
+        -1px -1px 0 black,  
+         1px -1px 0 black,  
+        -1px  1px 0 black,  
+         1px  1px 0 black; /* Creates black outline */
+}      .page-btn { padding: 12px 20px; font-size: 1.1rem; font-weight: bold; text-align: center; color: white; background: rgba(255, 0, 0, 0.3); border: 2px solid rgba(255, 255, 255, 1); border-radius: 6px; backdrop-filter: blur(6px); box-shadow: 0px 3px 6px rgba(255, 255, 255, 0.8); transition: all 0.3s ease-in-out; cursor: pointer; margin: 5px; }
+        .page-btn:hover { background: rgba(255, 0, 0, 0.5); box-shadow: 0px 4px 8px rgba(255, 255, 255, 1); transform: scale(1.05); }
+        .home-button { position: fixed; top: 20px; right: 20px; padding: 10px 15px; background: rgba(255, 0, 0, 0.5); color: white; font-size: 1rem; font-weight: bold; border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 6px; text-decoration: none; backdrop-filter: blur(6px); box-shadow: 0px 3px 6px rgba(255, 255, 255, 0.8); transition: all 0.3s ease-in-out; z-index: 1000; }
+        .home-button:hover { background: rgba(255, 0, 0, 0.7); transform: scale(1.1); }
+        .premium-heading {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 10px auto;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.7);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    display: block;
+    width: fit-content;
+}
+}
+}
+.search-container {
+    text-align: center;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Allows better mobile responsiveness */
 }
 
-// Call it after fetching games
-fetchGames().then(generateSchemaMarkup);
-    </script>
-    
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background: #222;
-            color: white;
-            padding: 20px;
-        }
-        .game-table {
-            width: 80%;
-            margin: auto;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .game-table th, .game-table td {
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 14px;
-            font-size: 1.1rem;
-            background: rgba(0, 0, 0, 0.3);
-        }
-        .game-table th {
-            background: rgba(255, 255, 255, 0.5);
-            color: black;
-            font-weight: bold;
-        }
-        .game-table a {
-            color: #00c3ff;
-            text-decoration: none;
-        }
-        .game-table a:hover {
-            text-decoration: underline;
-        }
-        .pagination {
-            margin-top: 20px;
-        }
-        .pagination button {
-            padding: 10px 15px;
-            margin: 5px;
-            font-size: 1rem;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .pagination button:hover {
-            background: #0056b3;
-        }
+.search-container {
+    text-align: center;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
 
-.home-button {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    background-color: #ff9800;
+#searchInput {
+    width: 40%; /* Smaller width */
+    padding: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    border: 1.5px solid white;
+    border-radius: 6px;
+    outline: none;
+    background: rgba(0, 0, 0, 0.7);
     color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
-    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+#searchInput:focus {
+    border-color: #ff0000;
+    box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.7);
+}
+
+.search-container button {
+    display: inline-block;
+    padding: 8px 12px;
     font-size: 1rem;
     font-weight: bold;
-    transition: background 0.3s, transform 0.2s;
-    border: none;
-    cursor: pointer;
-    box-shadow: 2px 2px 10px rgba(255, 152, 0, 0.5);
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background: rgba(0, 123, 255, 0.2); /* Light bluish transparent */
+    border: 2px solid rgba(0, 123, 255, 0.6); /* Blue border */
+    border-radius: 6px;
+    backdrop-filter: blur(6px); /* Glass effect */
+    box-shadow: 0px 4px 6px rgba(0, 123, 255, 0.5); /* Soft blue glow */
+    transition: all 0.3s ease-in-out;
 }
 
-.home-button:hover {
-    background-color: #e68900;
+.search-container button:hover {
+    background: rgba(0, 123, 255, 0.5); /* Darker blue on hover */
+    border-color: rgba(0, 123, 255, 1);
+    box-shadow: 0px 6px 12px rgba(0, 123, 255, 0.8); /* Stronger glow */
     transform: scale(1.05);
 }
 
-/* Compact Stylish Description */
-.description-container {
-    max-width: 90%; /* Wider */
-    margin: 40px auto 5px; /* Less height */
-    background: rgba(255, 255, 255, 0.05);
-    padding: 5px 15px;
-    border-radius: 6px;
-    box-shadow: 0px 1px 3px rgba(255, 255, 255, 0.1);
-    font-size: 0.8rem; /* Smaller font */
-    font-weight: 300;
-    line-height: 1.3;
+/* Ensures proper spacing between Home button and search bar */
+.home-button {
+    display: block;
+    margin-bottom: 10px; /* Adjusts spacing */
+}
+
+
+
+ body {
+    padding-top: 50px; /* Reduces space at the top */
+}
+
+/* Moves the Home button slightly lower but not too much */
+.home-button {
+    top: 30px; /* Slightly lower */
+}
+
+/* Reduces gap below Home button */
+.search-wrapper {
+    margin-top: 50px; /* Smaller space below the Home button */
+}
+
+/* Reduces space above the game table */
+.table-container {
+    margin-top: 20px; /* Keeps a clean layout without too much gap */
+}
+
+.game-table a {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 1rem;
+    font-weight: bold;
     text-align: center;
-    color: #ddd; /* Softer gray */
-    </style>
+    text-decoration: none;
+    color: white;
+    background: rgba(0, 123, 255, 0.2); /* Light bluish transparent */
+    border: 2px solid rgba(0, 123, 255, 0.6); /* Blue border */
+    border-radius: 6px;
+    backdrop-filter: blur(6px); /* Glass effect */
+    box-shadow: 0px 4px 6px rgba(0, 123, 255, 0.5); /* Soft blue glow */
+    transition: all 0.3s ease-in-out;
+}
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Top Trending PC Games - Free Downloads & Reviews",
-  "description": "Download the best PC games for free! Explore trending battle royale, RPG, survival, and strategy games.",
-  "keywords": [
-    "best PC games", "free game download", "online multiplayer", "battle royale",
-    "RPG games", "gaming news", "VR games", "new game releases",
-    "free PC games", "best RPG games", "open-world games", "FPS shooters",
-    "strategy games", "MOBA games", "indie games", "AAA games",
-    "best survival games", "cross-platform gaming", "esports tournaments",
-    "co-op multiplayer", "horror games", "MMORPGs", "sandbox games",
-    "best simulation games", "game reviews", "gaming setups",
-    "high-performance gaming", "best racing games", "best mobile games",
-    "new battle royale games", "best fighting games", "top-rated VR games"
-  ],
-  "url": "https://your-site.com/top-200-pc-games",
-  "publisher": {
-    "@type": "Organization",
-    "name": "1337Xtreme"
-  },
-  "about": {
-    "@type": "ItemList",
-    "name": "Trending Gaming Keywords",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "best PC games" },
-      { "@type": "ListItem", "position": 2, "name": "free game download" },
-      { "@type": "ListItem", "position": 3, "name": "online multiplayer" },
-      { "@type": "ListItem", "position": 4, "name": "battle royale" },
-      { "@type": "ListItem", "position": 5, "name": "RPG games" },
-      { "@type": "ListItem", "position": 6, "name": "gaming news" },
-      { "@type": "ListItem", "position": 7, "name": "VR games" },
-      { "@type": "ListItem", "position": 8, "name": "new game releases" },
-      { "@type": "ListItem", "position": 9, "name": "open-world games" },
-      { "@type": "ListItem", "position": 10, "name": "FPS shooters" },
-      { "@type": "ListItem", "position": 11, "name": "strategy games" },
-      { "@type": "ListItem", "position": 12, "name": "MMORPGs" },
-      { "@type": "ListItem", "position": 13, "name": "esports tournaments" },
-      { "@type": "ListItem", "position": 14, "name": "best racing games" },
-      { "@type": "ListItem", "position": 15, "name": "best mobile games" }
-    ]
-  }
-}}
-</script>
+.game-table a:hover {
+    background: rgba(0, 123, 255, 0.5); /* Darker blue on hover */
+    border-color: rgba(0, 123, 255, 1);
+    box-shadow: 0px 6px 12px rgba(0, 123, 255, 0.8); /* Stronger glow */
+    transform: scale(1.05);
+}
+
+</style>
+    
+    <!-- Schema.org JSON-LD Placeholder -->
+    <script id="game-schema" type="application/ld+json"></script>
 </head>
-<body>
-
 <a href="index.html" class="home-button">Home</a>
 
-<div class="description-container">
-<p>Looking for the <strong>best PC games</strong>, <strong>free-to-play games</strong>, or the latest <strong>online multiplayer games</strong>? Get access to <strong>free downloads</strong> of the most <strong>popular RPGs, battle royale games, survival games, and open-world adventures</strong>. Stay updated on the <strong>top trending games</strong>, upcoming <strong>new game releases</strong>, and the most <strong>hyped indie games</strong>. Whether you're into <strong>FPS shooters</strong>, <strong>strategy games</strong>, <strong>esports tournaments</strong>, or exploring the world of <strong>VR gaming</strong>, we have everything you need. Check out our expert <strong>game reviews</strong>, discover the <strong>best cross-platform multiplayer games</strong>, and optimize your <strong>gaming setup</strong> for <strong>high-performance gaming</strong>. From <strong>mobile gaming</strong> to <strong>console exclusives</strong>, we list the <strong>most downloaded games</strong> and hottest titles of the year. Explore the <strong>best open-world games</strong>, the <strong>most popular FPS games</strong>, and keep up with the latest <strong>esports tournaments</strong>. Discover <strong>best open-world games</strong>, <strong>most popular FPS games</strong>, and <strong>top esports tournaments</strong>. Explore the <strong>best strategy games</strong>, <strong>free-to-play multiplayer titles</strong>, and the <strong>most realistic simulation games</strong> trending in 2025. Whether you're searching for the <strong>best VR games</strong>, <strong>top-rated mobile games</strong>, or trending <strong>multiplayer survival games</strong>, this is your go-to source for everything gaming. Don't miss out on the biggest <strong>gaming news</strong>, <strong>new game releases</strong>, and free game downloads today!</p>
-</div>
-    <h1>Top 500 PC Games</h1>
-
-    <table class="game-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Game Name</th>
-            </tr>
-        </thead>
-        <tbody id="game-list"></tbody>
-    </table>
+<!-- Wrapper to properly align elements -->
+<div class="search-wrapper">
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search games..." onkeyup="searchGames()">
+        <button onclick="searchGames()">Search</button>
+    </div>
+</div>    <h1 class="premium-heading">Top 1000 Games Worldwide</h1>
+    <div class="table-container">
+        <table class="game-table">
+            <thead>
+                <tr>
+                    <th>Game Name</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody id="gameList"></tbody>
+        </table>
+    </div>
     <div class="pagination" id="pagination"></div>
-    
-    <script>
-        let currentPage = 1;
-        const gamesPerPage = 50;
-        let allGames = [];
 
-        async function fetchGames() {
-            document.getElementById("game-list").innerHTML = "<tr><td colspan='2'>Loading games...</td></tr>";
-            let apiKey = "7709241eb9a444e188fa7ebf1cd90fdc";
-            let apiUrl = "https://api.rawg.io/api/games?key=" + apiKey + "&page_size=50&platforms=4";
-            
-            try {
-                allGames = [];
-                let positionCounter = 1; // Ensure position increments correctly
-                for (let i = 1; i <= 10; i++) {
-                    let response = await fetch(apiUrl + "&page=" + i);
-                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                    let data = await response.json();
-                    if (!data.results) throw new Error("No game data found");
-                    
-                    data.results.forEach(game => {
-                        allGames.push({ position: positionCounter, name: game.name });
-                        positionCounter++;
-                    });
+    <script src="games.js"></script>
+    <script>
+        const gamesPerPage = 50;
+        let currentPage = 1;
+
+        function generateMetaTags() {
+            const head = document.head;
+            gamesData.games.forEach((game, index) => {
+                const metaTags = [
+                    { name: `game-download-${index + 1}`, content: `${game.name} Free Download` },
+                    { name: `game-play-${index + 1}`, content: `Play ${game.name} Online` },
+                    { name: `game-category-${index + 1}`, content: `Best ${game.name} Game` }
+                ];
+                metaTags.forEach(tag => {
+                    const metaElement = document.createElement("meta");
+                    metaElement.name = tag.name;
+                    metaElement.content = tag.content;
+                    head.appendChild(metaElement);
+                });
+            });
+        }
+
+        function generateGameSchema() {
+            const schemaScript = document.getElementById("game-schema");
+            const games = gamesData.games.map(game => ({
+                "@context": "https://schema.org",
+                "@type": "VideoGame",
+                "name": game.name,
+                "url": game.url,
+                "applicationCategory": "Game",
+                "operatingSystem": "Windows, macOS, PlayStation, Xbox, Switch",
+                "author": {
+                    "@type": "Organization",
+                    "name": "Top Games List"
+                },
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.5",
+                    "reviewCount": "1000"
                 }
-                displayGames();
-                createPagination();
-                generateSchemaMarkup();
-            } catch (error) {
-                console.error("Game Fetch Error:", error);
-                document.getElementById("game-list").innerHTML = "<tr><td colspan='2'>Failed to load games. Please check your API key and network connection.</td></tr>";
+            }));
+            schemaScript.textContent = JSON.stringify(games, null, 2);
+        }
+
+        function displayGames(page) {
+            const gameList = document.getElementById("gameList");
+            const pagination = document.getElementById("pagination");
+            gameList.innerHTML = "";
+            pagination.innerHTML = "";
+            const start = (page - 1) * gamesPerPage;
+            const end = start + gamesPerPage;
+            const paginatedGames = gamesData.games.slice(start, end);
+            paginatedGames.forEach(game => {
+                const row = document.createElement("tr");
+                const nameCell = document.createElement("td");
+                nameCell.textContent = game.name;
+                const linkCell = document.createElement("td");
+                const gameLink = document.createElement("a");
+                gameLink.href = game.url;
+                gameLink.textContent = "See More";
+                gameLink.target = "_blank";
+                gameLink.style.color = "white";
+                linkCell.appendChild(gameLink);
+                row.appendChild(nameCell);
+                row.appendChild(linkCell);
+                gameList.appendChild(row);
+            });
+            const totalPages = Math.ceil(gamesData.games.length / gamesPerPage);
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = i;
+                btn.classList.add("page-btn");
+                btn.onclick = () => {
+                    currentPage = i;
+                    displayGames(i);
+                };
+                if (i === page) btn.style.background = "#0056b3";
+                pagination.appendChild(btn);
             }
         }
 
-        function displayGames() {
-            let start = (currentPage - 1) * gamesPerPage;
-            let end = start + gamesPerPage;
-            let paginatedGames = allGames.slice(start, end);
-            document.getElementById("game-list").innerHTML = paginatedGames.map(game => 
-                `<tr><td>${game.position}</td><td><a href='https://www.google.com/search?q=${encodeURIComponent(game.name)}' target='_blank'>${game.name}</a></td></tr>`).join("");
-        }
-
-        function createPagination() {
-            let totalPages = Math.ceil(allGames.length / gamesPerPage);
-            document.getElementById("pagination").innerHTML = 
-                Array.from({ length: totalPages }, (_, i) => `<button onclick='changePage(${i + 1})'>${i + 1}</button>`).join(" ");
-        }
-
-        function changePage(page) {
-            currentPage = page;
-            displayGames();
-        }
-
-        fetchGames();
+        generateMetaTags();
+        generateGameSchema();
+        displayGames(currentPage);
     </script>
+<script>
+    function searchGames() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let gameList = document.getElementById("gameList");
+
+        if (!gameList) return; // If no game list, exit function
+
+        gameList.innerHTML = ""; // Clear current list
+
+        gamesData.games.forEach(game => {
+            if (game.name.toLowerCase().includes(input)) {
+                let row = document.createElement("tr");
+                let nameCell = document.createElement("td");
+                nameCell.textContent = game.name;
+                let linkCell = document.createElement("td");
+                let gameLink = document.createElement("a");
+                gameLink.href = game.url;
+                gameLink.textContent = "See More";
+                gameLink.target = "_blank";
+                gameLink.style.color = "white";
+                linkCell.appendChild(gameLink);
+                row.appendChild(nameCell);
+                row.appendChild(linkCell);
+                gameList.appendChild(row);
+            }
+        });
+
+        if (gameList.innerHTML === "") {
+            gameList.innerHTML = "<tr><td colspan='2' style='text-align: center;'>No games found</td></tr>";
+        }
+    }
+</script>
 </body>
 </html>
-
