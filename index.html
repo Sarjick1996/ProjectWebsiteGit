@@ -14,39 +14,58 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://yourwebsite.com" />
     <style>
-        /* Hamburger button */
-        .menu-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 1000;
-        }
-        .menu-btn span {
-            width: 30px;
-            height: 3px;
-            background-color: white;
-            display: block;
-            margin: 6px auto;
-            transition: 0.3s;
-        }
+/* Hamburger Button */
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+}
 
-        /* Sliding Menu */
-        .dropdown-menu {
-            position: fixed;
-            top: 0;
-            left: -250px; /* Initially hidden off-screen */
-            width: 250px;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 999;
-            transition: 0.5s;
-            padding-top: 60px;
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
-        }
+/* Rotate entire button when open */
+.menu-btn.open {
+    transform: rotate(90deg);
+}
 
+
+.menu-btn:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Keep the three lines visible while rotating */
+.menu-btn span {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    display: block;
+    margin: 6px auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+/* Sliding Menu */
+.dropdown-menu {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Initially hidden */
+    width: 250px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 999;
+    transition: left 0.5s ease-in-out;
+    padding-top: 60px;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-menu.open {
+    left: 0;
+}
         .dropdown-menu a {
             color: white;
             text-decoration: none;
@@ -300,10 +319,26 @@
 
 </script>
 <script>
-          function toggleMenu() {
-            const menu = document.getElementById("dropdownMenu");
-            menu.classList.toggle("open");
+document.addEventListener("DOMContentLoaded", function () {
+    const menu = document.getElementById("dropdownMenu");
+    const menuBtn = document.querySelector(".menu-btn");
+
+    // Function to toggle menu
+    function toggleMenu() {
+        menu.classList.toggle("open");
+        menuBtn.classList.toggle("open"); // Rotates the button
+    }
+
+    menuBtn.addEventListener("click", toggleMenu);
+
+    // Close menu if clicked outside
+    document.addEventListener("click", function (event) {
+        if (!menu.contains(event.target) && !menuBtn.contains(event.target)) {
+            menu.classList.remove("open");
+            menuBtn.classList.remove("open"); // Reset button animation
         }
+    });
+});
 </script>
 
 </head>
