@@ -14,6 +14,82 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://yourwebsite.com" />
     <style>
+        /* Hamburger button */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .menu-btn span {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            display: block;
+            margin: 6px auto;
+            transition: 0.3s;
+        }
+
+        /* Sliding Menu */
+        .dropdown-menu {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Initially hidden off-screen */
+            width: 250px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 999;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+            font-family: 'Georgia', serif;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            text-transform: capitalize;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        /* Sliding in effect */
+        .dropdown-menu.open {
+            left: 0;
+        }
+
+        /* Existing Styles */
+        body {
+            font-family: 'Merriweather', serif;
+            text-align: center;
+            color: white;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            margin-top: 2vh;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         body {
             font-family: 'Merriweather', serif;
             text-align: center;
@@ -197,6 +273,7 @@
 }
 </script>
 
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -220,9 +297,31 @@
     }
   ]
 }
+
 </script>
+<script>
+          function toggleMenu() {
+            const menu = document.getElementById("dropdownMenu");
+            menu.classList.toggle("open");
+        }
+</script>
+
 </head>
 <body>
+    <!-- Hamburger Button -->
+    <button class="menu-btn" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Sliding Menu -->
+    <div class="dropdown-menu" id="dropdownMenu">
+    <a href="about-us.html">About Us</a>
+    <a href="description.html">Description</a>
+    <a href="torrent-details.html">Torrent Details</a>
+    <a href="user-manual.html">User Manual</a>
+</div>
     <div class="disclaimer">
         <p>Stop wasting time searching everywhere! We bring you the fastest and most reliable way to find free movies, games, music, and more. <strong>Stay safe—always use a VPN!</strong></p>
     </div>
@@ -265,6 +364,7 @@
 </p>
         </div>
     </div>
+
 </body>
 </html>
 
