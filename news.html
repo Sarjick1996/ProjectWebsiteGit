@@ -3,86 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latest Torrent News | 1337X, Pirate Bay & More</title>
-    <meta name="description" content="Get the latest torrent news, 1337x proxy updates, Pirate Bay shutdowns, and more. Updated live from multiple sources.">
-    <meta name="keywords" content="torrent news, 1337x latest news, pirate bay updates, torrent site shutdowns, YTS news, best torrent sites">
+    <title>Latest Movies, Games & Torrent News | 1337Xtreme</title>
+    <meta name="description" content="Stay updated with the latest movie and game news. Powered by real-time RSS feeds.">
+    <meta name="keywords" content="torrent news, latest movies, latest games, best torrent sites, 1337x proxy, YTS, RARBG, EZTV, movie news, actor news">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="your-movienews-page-url">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Latest Movies, Games & Torrent News | 1337Xtreme">
+    <meta property="og:description" content="Stay updated with the latest movie and game news. Powered by real-time RSS feeds.">
+    <meta property="og:image" content="your-image-url.jpg">
+    <meta property="og:url" content="your-movienews-page-url">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Structured Data (Schema Markup) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "Latest Movies, Games & Torrent News",
+      "author": {
+        "@type": "Organization",
+        "name": "1337Xtreme"
+      },
+      "datePublished": "2025-03-22",
+      "dateModified": "2025-03-22",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "your-movienews-page-url"
+      }
+    }
+    </script>
+    
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             text-align: center;
-            background: #0d0d0d;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: white;
             padding: 20px;
         }
-        h1, h2 {
-            color: #ffcc00;
-        }
-        .news-container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            max-width: 800px;
+        .news-table {
+            width: 80%;
             margin: auto;
-            text-align: left;
-        }
-        .news-item {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 5px;
+            border-collapse: collapse;
+            margin-top: 20px;
             background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
         }
-        .news-item a {
-            color: #ff6666;
-            text-decoration: none;
+        .news-table th, .news-table td {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 14px;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .news-table th {
+            background: rgba(255, 0, 0, 0.4);
+            color: white;
             font-weight: bold;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        .pagination button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+            background: rgba(255, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 1);
+            border-radius: 6px;
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .pagination button:hover {
+            background: rgba(255, 0, 0, 0.5);
+            box-shadow: 0px 4px 8px rgba(255, 255, 255, 1);
+
+        }
+  .home-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+            background: rgba(255, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 1);
+            border-radius: 6px;
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .home-button:hover {
+            background: rgba(255, 0, 0, 0.5);
+            box-shadow: 0px 4px 8px rgba(255, 255, 255, 1);
         }
     </style>
 </head>
 <body>
-    <h1>🔥 Latest Torrent News & Updates</h1>
-    <p>Get real-time news on **1337x, Pirate Bay, YTS, RARBG, and more**.</p>
-
-    <div class="news-container">
-        <h2>📢 Live Torrent News:</h2>
-        <div id="news-list">Loading...</div>
-    </div>
-
+<a href="index.html" class="home-button">Home</a>
+    <h1>Latest Movies, Games & Torrent News</h1>
+    <table class="news-table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody id="news-list"></tbody>
+    </table>
+    <div class="pagination" id="pagination"></div>
+    
     <script>
-        async function fetchTorrentNews() {
-            let rssFeedUrl = "https://torrentfreak.com/feed/"; // TorrentFreak RSS feed
-            let proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(rssFeedUrl);
+        let currentPage = 1;
+        const newsPerPage = 8;
+        let allNews = [];
+
+        async function fetchNews() {
+            document.getElementById("news-list").innerHTML = "Loading news...";
+            let rssFeeds = [
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.gamespot.com/feeds/news/",
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.hollywoodreporter.com/feed/",
+                "https://api.rss2json.com/v1/api.json?rss_url=https://www.ign.com/feeds/movies"
+            ];
 
             try {
-                let response = await fetch(proxyUrl);
-                let data = await response.json();
-                let parser = new DOMParser();
-                let xml = parser.parseFromString(data.contents, "text/xml");
-                let items = xml.querySelectorAll("item");
-
-                let newsHtml = "";
-                items.forEach((item, index) => {
-                    if (index < 5) { // Show latest 5 news articles
-                        let title = item.querySelector("title").textContent;
-                        let link = item.querySelector("link").textContent;
-                        let description = item.querySelector("description").textContent.substring(0, 150) + "...";
-
-                        newsHtml += `
-                            <div class="news-item">
-                                <a href="${link}" target="_blank">${title}</a>
-                                <p>${description}</p>
-                            </div>
-                        `;
+                allNews = [];
+                for (let feedUrl of rssFeeds) {
+                    let response = await fetch(feedUrl);
+                    let data = await response.json();
+                    if (data.items) {
+                        data.items.forEach(item => {
+                            allNews.push({
+                                title: item.title,
+                                link: item.link,
+                                description: item.description.substring(0, 150) + "...",
+                                image: item.thumbnail || "https://via.placeholder.com/800x400"
+                            });
+                        });
                     }
-                });
-
-                document.getElementById("news-list").innerHTML = newsHtml;
+                }
+                displayNews();
+                createPagination();
             } catch (error) {
+                console.error("News Fetch Error:", error);
                 document.getElementById("news-list").innerHTML = "Failed to load news.";
             }
         }
 
-        fetchTorrentNews(); // Load news when the page opens
+        function displayNews() {
+            let start = (currentPage - 1) * newsPerPage;
+            let end = start + newsPerPage;
+            let paginatedNews = allNews.slice(start, end);
+            document.getElementById("news-list").innerHTML = paginatedNews.map(news => 
+                `<tr>
+                    <td><img src='${news.image}' alt='${news.title}' width='120' height='80'></td>
+                    <td><a href='${news.link}' target='_blank'>${news.title}</a></td>
+                    <td>${news.description}</td>
+                </tr>`
+            ).join("");
+        }
+
+        function createPagination() {
+            let totalPages = Math.ceil(allNews.length / newsPerPage);
+            document.getElementById("pagination").innerHTML = 
+                Array.from({ length: totalPages }, (_, i) => `<button onclick='changePage(${i + 1})'>${i + 1}</button>`).join(" ");
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            displayNews();
+        }
+
+        fetchNews();
     </script>
 </body>
 </html>
