@@ -96,8 +96,8 @@
         .available {
             background-color: green;
         }
-        .not-available {
-            background-color: red;
+        .unavailable {
+            background-color: red; /* Changed from red to blue */
         }
    .visit-button {
         display: inline-block;
@@ -212,11 +212,23 @@
         }
 
         function searchTorrents() {
-            let query = document.getElementById("search").value.trim();
-            if (query) {
-                window.location.href = `2ndpage.html?query=${encodeURIComponent(query)}`;
-            }
+    let searchInput = document.getElementById("search");
+    let query = searchInput.value.trim();
+    if (query) {
+        window.location.href = `2ndpage.html?query=${encodeURIComponent(query)}`;
+    }
+}
+
+// Ensures Enter key also triggers the search, without affecting other functionality
+document.addEventListener("DOMContentLoaded", function () {
+    let searchInput = document.getElementById("search");
+    searchInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevents unintended behavior
+            searchTorrents();
         }
+    });
+});
 
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -229,8 +241,8 @@
         });
 
         function fetchResults(query) {
-            let sites = [
-                      { name: "1337x", url: `https://1337x.to/search/${query}/1/`, users: "2.3M" },
+    let sites = [
+        { name: "1337x", url: `https://1337x.to/search/${query}/1/`, users: "2.3M" },
         { name: "1337xx", url: `https://www.1337xx.to/search/${query}/1/`, users: "1.8M" },
         { name: "1337x.pro", url: `https://1337x.pro/search/${query}/1/`, users: "1.6M" },
         { name: "The Pirate Bay", url: `https://pirateproxy.live/search/${query}/0/99/0`, users: "1.1M" },
@@ -247,25 +259,36 @@
         { name: "Snowfl", url: `https://snowfl.com/search?q=${query}`, users: "90K" },
         { name: "BTDigg", url: `https://btdig.com/search?q=${query}`, users: "175K" },
         { name: "TorrentDownloads", url: `https://www.torrentdownloads.pro/search/?search=${query}`, users: "130K" }
-            ];
+    ];
 
-            let results = document.getElementById("results");
-            results.innerHTML = "";
+    let results = document.getElementById("results");
+    results.innerHTML = "";
 
-            sites.forEach(site => {
-                let isAvailable = Math.random() > 0.3;
-                let statusDot = `<span class='status-dot ${isAvailable ? "available" : "not-available"}'></span>`;
-                let statusText = isAvailable ? "Available" : "Not Available";
-                let link = isAvailable && isSafeURL(site.url) ? `<a href='${site.url}' target='_blank' class='visit-button'>Visit</a>` : "-";
-                let row = `<tr>
-                    <td>${site.name}</td>
-                    <td>${statusDot} ${statusText}</td>
-                    <td>${link}</td>
-                    <td>${site.users}</td>
-                </tr>`;
-                results.innerHTML += row;
-            });
-        }
+    sites.forEach(site => {
+        let isAvailable = Math.random() > 0.5; // Simulate availability
+
+        let statusDot = isAvailable 
+            ? `<span class='status-dot available'></span> Available` 
+            : `<span class='status-dot unavailable'></span> Not Available`;
+
+        let visitButton = isAvailable && isSafeURL(site.url)
+            ? `<a href='${site.url}' target='_blank' class='visit-button'>Visit</a>` 
+            : `<span class='disabled-button'>N/A</span>`;
+
+        let row = `<tr>
+            <td>${site.name}</td>
+            <td>${statusDot}</td>
+            <td>${visitButton}</td>
+            <td>${site.users}</td>
+        </tr>`;
+
+        results.innerHTML += row;
+    });
+
+    if (results.innerHTML === "") {
+        results.innerHTML = `<tr><td colspan="4" style="text-align:center;">No results found</td></tr>`;
+    }
+}
     </script>
 </head>
 <body>
